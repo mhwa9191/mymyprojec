@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tech.sWeb05.dao.ReviewDao">
+   <resultMap type="com.tech.sWeb05.dto.Dept" id="Dept">
+      <result column="DEPTNO" property="deptno" />
+      <result column="DNAME" property="dname" />
+      <result column="LOC" property="loc" />
+   </resultMap>
+   <resultMap type="com.tech.sWeb05.dto.Emp" id="Emp">
+      <result column="EMPNO" property="empno" />
+      <result column="ENAME" property="ename" />
+      <result column="JOB" property="job" />
+      <result column="MGR" property="mgr" />
+      <result column="HIREDATE" property="hiredate" />
+      <result column="SAL" property="sal" />
+      <result column="COMM" property="comm" />
+      <result column="DEPTNO" property="deptno" />
+      <collection property="dept" resultMap="Dept"></collection>
+   </resultMap>
+   
+   <select id="getDeptEmpJoin" parameterType="com.tech.sWeb05.dto.Emp"  resultMap="Emp">
+      SELECT E.EMPNO,E.MGR,E.ENAME,E.HIREDATE,E.JOB,E.DEPTNO,D.DNAME
+      FROM EMP E INNER JOIN DEPT D
+      ON E.DEPTNO=D.DEPTNO
+   </select>
+   
+   <select id="getEmp" resultType="com.tech.sWeb05.dto.Emp">
+      SELECT * FROM EMP
+   </select>
+
+</mapper>
+
+
+
+*** class Emp 
+	private int empno;
+	private String ename;
+	private String job;
+	private int mgr;
+	private Date hiredate;
+	private int sal;
+	private int comm;
+	private int deptno;
+	
+	private Dept dept; **추가
+	
+	
+	
+****interface ReviewDao	
+	public ArrayList<Emp> getDeptEmpJoin();
+	
+	
+	
+**controller
+	@RequestMapping(value = "/joinmap", method = RequestMethod.GET)
+	public String viewwrite(HttpServletRequest request,Locale locale, Model model) {
+		ReviewDao dao=sqlSession.getMapper(ReviewDao.class);
+		
+		ArrayList<Emp> joinlist=dao.getDeptEmpJoin();
+		
+		for (Emp emp : joinlist) {
+			System.out.println(emp.getDeptno()+":"+emp.getDept().getDname());
+		}
+		model.addAttribute("list", joinlist );
+		
+		return "joinmap";
+	}

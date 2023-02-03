@@ -7,12 +7,12 @@
     </select>
 	<insert id="payment" >
 		INSERT INTO ORDER_MEMBER VALUES(TO_CHAR(SYSDATE,'YYYYMMDD')||#{param1},
-		ORDER_SEQ.NEXTVAL,#{param2},'수정이','필요해보인다',#{param3},#{param1},SYSDATE,
+		ORDER_SEQ.NEXTVAL,#{param2},#{param3},#{param1},SYSDATE,
 		'포인트',30,'결제완료','N',NULL)
     </insert>
     
     <select id="mtOrderList" resultType="micky.sports.shop.dto.OrderMemberDto">
-		SELECT OM_CNTNUM,OM_NUM,P_COLOR,P_SIZE,U_CNT,M_ID,OM_DATE,
+		SELECT OM_CNTNUM,OM_NUM,U_CNT,M_ID,OM_DATE,
 		OM_PAY,P_PRICE FROM ORDER_MEMBER WHERE M_ID=#{param1}
     </select>
 

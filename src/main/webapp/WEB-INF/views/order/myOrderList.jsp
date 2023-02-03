@@ -17,21 +17,15 @@ ${cCnt } --%>
 	<tr>
 		<td>상품주문번호</td>
 		<td>주문번호</td>
-		<td>색상</td>
-		<td>사이즈</td>
 		<td>주문수량</td>
 		<td>주문일자</td>
 		<td>결제형태</td>
 		<td>총액</td>
-		<td>처리상태</td>
-		<td>주문취소일자</td>
 	</tr>
 	<c:forEach items="${omdList }" var="dto">
 	<tr>
 		<td>${dto.om_cntnum }</td>
  		<td>${dto.om_num }</td>
-		<td>${dto.p_color }</td>
-		<td>${dto.p_size }</td>
 		<td>${dto.u_cnt }</td>
 		<td>${dto.om_date }</td>
 		<td>${dto.om_pay }</td>
