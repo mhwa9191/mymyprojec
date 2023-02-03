@@ -1,0 +1,104 @@
+--db참고
+--create user micky identified by 123456;
+--grant connect,resource,dba to micky;
+--conn micky;
+show user;
+
+--계정삭제
+--drop user micky CASCADE;
+
+create table product(
+p_no varchar2(50),
+p_name varchar2(100),
+p_price number,
+p_cnt number,
+p_color varchar2(20),
+p_size varchar2(20),
+p_filesrc varchar2(100));
+drop table product;
+commit;
+CREATE SEQUENCE PNO_SEQ
+INCREMENT BY 1 START WITH 100 MAXVALUE 110 MINVALUE 90 CYCLE CACHE 2;
+
+insert into product values('N'||PNO_SEQ.NEXTVAL,'W''S NUPTSE HYBRID DOWN BALL JACKET',249000,8,'BLACK','085XS','NJ1DN82A_NJ1DN82A_primary');
+insert into product values('N'||PNO_SEQ.NEXTVAL,'W''S NUPTSE HYBRID DOWN BALL JACKET',249000,9,'BLACK','090S','NJ1DN82A_NJ1DN82A_primary');
+insert into product values('N'||PNO_SEQ.NEXTVAL,'W''S NUPTSE HYBRID DOWN BALL JACKET',249000,5,'BLACK','095M','NJ1DN82A_NJ1DN82A_primary');
+insert into product values('N'||PNO_SEQ.NEXTVAL,'W''S NUPTSE HYBRID DOWN BALL JACKET',249000,8,'IVORY','085XS','NJ1DN82B_NJ1DN82B_primary');
+insert into product values('N'||PNO_SEQ.NEXTVAL,'W''S NUPTSE HYBRID DOWN BALL JACKET',249000,9,'IVORY','090S','NJ1DN82B_NJ1DN82B_primary');
+insert into product values('N'||PNO_SEQ.NEXTVAL,'W''S NUPTSE HYBRID DOWN BALL JACKET',249000,5,'IVORY','095M','NJ1DN82B_NJ1DN82B_primary');
+insert into product values('N'||PNO_SEQ.NEXTVAL,'W''S NOVELTY NUPTSE DOWN JACKET P',318000,5,'SILVER','085XS','NJ1DN81K_NJ1DN81K_primary');
+insert into product values('N'||PNO_SEQ.NEXTVAL,'W''S NOVELTY NUPTSE DOWN JACKET P',318000,5,'SILVER','090S','NJ1DN81K_NJ1DN81K_primary');
+insert into product values('N'||PNO_SEQ.NEXTVAL,'W''S NOVELTY NUPTSE DOWN JACKET P',318000,5,'SILVER','095M','NJ1DN81K_NJ1DN81K_primary');
+
+select * from product;
+select p_no,p_name,p_price,p_cnt,p_color,p_size,p_filesrc from product;
+select p_name,p_filesrc from product group by p_name,p_filesrc order by p_name;
+
+select p_no,p_name,p_price,p_cnt,p_color,p_size,p_filesrc from product where p_no='N101';
+select p_no,p_name,p_price,p_cnt,p_color,p_size,p_filesrc from product where p_name='W''S NOVELTY NUPTSE DOWN JACKET P';
+
+--동일한 내용 보이는것 productMain
+select p_name,p_filesrc from product where p_name='W''S NOVELTY NUPTSE DOWN JACKET P'
+group by p_name,p_filesrc;
+select p_name,p_filesrc,p_color from product where p_name='W''S NUPTSE HYBRID DOWN BALL JACKET'
+group by p_name,p_filesrc,p_color;
+
+--상품별 사이즈 확인
+select p_size from (select * from product where p_name='W''S NUPTSE HYBRID DOWN BALL JACKET');
+select p_no,p_size,p_color,p_cnt from (select * from product where p_name='W''S NUPTSE HYBRID DOWN BALL JACKET');
+
+
+select p_no,p_name,p_price,p_cnt,p_color,p_size,p_filesrc from product where p_name='W''S NUPTSE HYBRID DOWN BALL JACKET';
+
+select p_no,p_name,p_price,p_cnt,p_color,p_size,p_filesrc from product where p_name='W''S NOVELTY NUPTSE DOWN JACKET P' and p_size='085XS' and p_color='SILVER';
+select p_name,p_price,p_color,p_size from product where p_no='N108';
+
+drop table order_member;
+drop SEQUENCE ORDER_SEQ;
+
+create table order_member(
+om_num varchar2(100), --주문번호
+om_cntnum varchar2(100), --상품주문번호 primary
+p_no varchar2(100), --상품번호
+p_color varchar2(100), --색상
+p_size varchar2(100), --사이즈
+u_cnt number, --주문수량
+m_id varchar2(100), --아이디
+om_date date, --주문일자
+om_pay varchar2(100), --결제형태
+p_price number, --총액
+om_state varchar2(100), --처리상태(결제완료,취소요청,취소완료,상품준비중,배송완료,구매확정)
+om_cancle varchar2(100), --주문취소여부(N,Y)
+om_cdate date); --주문취소일자
+commit;
+
+CREATE SEQUENCE ORDER_SEQ INCREMENT BY 1 
+START WITH 1000 MAXVALUE 2000 MINVALUE 1000 CYCLE CACHE 2;
+
+insert into order_member values(TO_CHAR(SYSDATE, 'YYYYMMDD')||'blue1',ORDER_SEQ.NEXTVAL,'N101','BLACK','085XS',2,'blue1',sysdate,'포인트',249000*2,'결제완료','N','');
+insert into order_member values(TO_CHAR(SYSDATE, 'YYYYMMDD')||'blue1',ORDER_SEQ.NEXTVAL,'N105','IVORY','090S',1,'blue1',sysdate,'포인트',249000*2,'결제완료','N','');
+insert into order_member values(TO_CHAR(SYSDATE, 'YYYYMMDD')||'blue1',ORDER_SEQ.NEXTVAL,'N109','SILVER','095M',4,'blue1',sysdate,'포인트',318000*2,'결제완료','N','');
+
+--특정상품 가격으로 인서트
+select p_price from product where p_no='N101';
+insert into order_member values(TO_CHAR(SYSDATE,'YYYYMMDD')||'blue2',ORDER_SEQ.NEXTVAL,'N101','','',2,'blue2',sysdate,'포인트',30,'결제완료','N',null);
+insert into order_member values(TO_CHAR(SYSDATE,'YYYYMMDD')||'blue2',ORDER_SEQ.NEXTVAL,'N101','','',2,'blue2',sysdate,'포인트',30,'결제완료','N',null);
+
+select om_cntnum 상품주문번호,om_num 주문번호,p_no 상품번호,p_color 색상,p_size 사이즈,u_cnt 주문수량,m_id 아이디,om_date 주문일자,om_pay 결제형태,
+p_price 총액,om_state 처리상태,om_cancle 주문취소요청여부,om_cdate 주문취소일자 from order_member;
+
+select om_cntnum ,om_num ,p_no ,p_color ,p_size ,u_cnt ,m_id ,om_date ,om_pay ,p_price ,om_state ,om_cancle ,om_cdate  from order_member where m_id='blue1';
+SELECT OM_CNTNUM,OM_NUM,P_COLOR,P_SIZE,U_CNT,M_ID,OM_DATE,OM_PAY,P_PRICE FROM ORDER_MEMBER WHERE M_ID='blue1';
+SELECT OM_CNTNUM FROM ORDER_MEMBER WHERE M_ID='blue1';
+SELECT OM_CNTNUM,OM_NUM,P_COLOR,P_SIZE,U_CNT,M_ID,OM_DATE,OM_PAY,P_PRICE FROM ORDER_MEMBER;
+SELECT OM_CNTNUM,OM_NUM FROM (SELECT * FROM ORDER_MEMBER WHERE M_ID='blue1');
+
+SELECT OM_CNTNUM,OM_NUM,P_COLOR,P_SIZE,U_CNT,M_ID,OM_DATE,OM_PAY,P_PRICE,p_no FROM ORDER_MEMBER WHERE M_ID='blue1';
+delete from order_member where om_cntnum=1008;
+
+
+--주문테이블 수정안
+--주문할때는 상품번호와 주문수량만 입력하고 
+--주문내역을 확인할때는 select join을 실행
+
+

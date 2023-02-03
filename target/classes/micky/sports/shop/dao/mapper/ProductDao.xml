@@ -1,0 +1,20 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="micky.sports.shop.dao.ProductDao">
+    <select id="productlist" resultType="micky.sports.shop.dto.ProductDto">
+		SELECT P_NAME,P_FILESRC FROM PRODUCT GROUP BY P_NAME,P_FILESRC ORDER BY P_NAME
+    </select>
+
+	<select id="product" resultType="micky.sports.shop.dto.ProductDto">
+		SELECT P_NO,P_NAME,P_PRICE,P_CNT,P_COLOR,P_SIZE,P_FILESRC FROM PRODUCT
+		WHERE P_NAME=#{param1}
+    </select>
+	<select id="productMain" resultType="micky.sports.shop.dto.ProductDto">
+		SELECT P_NAME,P_FILESRC,P_COLOR FROM PRODUCT
+		WHERE P_NAME=#{param1} GROUP BY P_NAME,P_FILESRC,P_COLOR
+    </select>
+	<select id="productSelect" resultType="micky.sports.shop.dto.ProductDto">
+		SELECT P_NO,P_SIZE,P_COLOR,P_CNT FROM (SELECT * FROM PRODUCT WHERE P_NAME=#{param1})
+    </select>
+</mapper>
