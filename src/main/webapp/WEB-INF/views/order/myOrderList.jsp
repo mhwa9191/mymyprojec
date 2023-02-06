@@ -18,9 +18,9 @@ ${cCnt } --%>
 		<td>주문번호</td>
 		<td>주문자</td>
 		<td>상품명</td>
-		<td>주문수량</td>
 		<td>색상</td>
 		<td>사이즈</td>
+		<td>주문수량</td>
 		<td>총액</td>
 		<td>결제형태</td>
 	</tr>
@@ -29,9 +29,9 @@ ${cCnt } --%>
 		<td>${mlist.orderMemberDto.om_num }</td>
  		<td>${mlist.orderMemberDto.m_id }</td>
 		<td>${mlist.p_name }</td>
-		<td>${mlist.orderMemberDto.u_cnt }</td>
 		<td>${mlist.p_color }</td>
 		<td>${mlist.p_size }</td>
+		<td>${mlist.orderMemberDto.u_cnt }</td>
 		<td>${mlist.orderMemberDto.p_price }</td>
 		<td>${mlist.orderMemberDto.om_state }</td>
 	</tr>

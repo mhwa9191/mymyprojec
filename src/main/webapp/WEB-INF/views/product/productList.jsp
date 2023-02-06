@@ -21,7 +21,7 @@
 			<img src="../resources/img/productimg/${plist.p_filesrc }.jpg" width="50" alt="" />
 			</td>
 			<td>
-			<a href="productDetail?pname=${plist.p_name }">
+			<a href="productDetail?pname=${plist.p_name }&pfilesrc=${plist.p_filesrc }">
 			${plist.p_name }</a>
 			</td>
 		</tr>

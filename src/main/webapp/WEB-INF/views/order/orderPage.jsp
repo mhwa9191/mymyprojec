@@ -16,7 +16,7 @@
 <div>
 	<img src="../resources/img/${orderPSelect.p_filesrc }.jpg" width="50" alt="" /> <br />
 	<input type="text" name="p_no" value="${orderPSelect.p_no }"/>
-	<input type="text" name="cnt" value="${cnt }"/>
+	<input type="text" name="cnt" value="${cnt }"/> <br />
 	상품명 : <div id="p_name">${orderPSelect.p_name }</div> <br />
 	색상 : <div id="p_color">${orderPSelect.p_color }</div> <br />
 	사이즈 : <div id="p_size">${orderPSelect.p_size }</div> <br />

@@ -6,16 +6,9 @@
 		SELECT P_NAME,P_NO,P_PRICE,P_COLOR,P_SIZE,P_FILESRC FROM PRODUCT WHERE P_NO=#{param1}
     </select>
 	<insert id="payment" >
-<<<<<<< HEAD
-		INSERT INTO ORDER_MEMBER VALUES(TO_CHAR(SYSDATE,'YYYYMMDD')||#{param1},
-		ORDER_SEQ.NEXTVAL,#{param2},#{param3},#{param1},SYSDATE,'포인트',
-		(SELECT P_PRICE FROM PRODUCT WHERE P_NO=#{param2})*#{param3},
-		'결제완료','N',NULL,NULL)
-=======
 		INSERT INTO ORDER_MEMBER(OM_CNTNUM,OM_NUM,P_NO,U_CNT,M_ID,OM_DATE,OM_PAY,P_PRICE,OM_STATE,OM_CANCLE,OM_CDATE,C_REASON) 
 		VALUES(ORDER_SEQ.NEXTVAL,TO_CHAR(SYSDATE, 'YYYYMMDD')||#{param1},#{param2},#{param3},#{param1},SYSDATE,'포인트',
 		(SELECT P_PRICE FROM PRODUCT WHERE P_NO=#{param2})*#{param3},'결제완료','N',NULL,NULL)
->>>>>>> 140510e94391045094c9c978be541c129efaa3ff
     </insert>
     
     

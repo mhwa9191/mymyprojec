@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import micky.sports.shop.dao.OrderDao;
+import micky.sports.shop.dao.ProductDao;
 import micky.sports.shop.dto.OrderMemberDto;
 import micky.sports.shop.dto.ProductDto;
 import micky.sports.shop.service.MickyServiceInter;
@@ -69,6 +70,10 @@ public class OrderController {
 		
 		OrderDao odao=sqlSession.getMapper(OrderDao.class);
 		odao.payment(mId,pNo,cnt);
+		
+		//구매한 수량 재고 삭제
+		ProductDao pdao=sqlSession.getMapper(ProductDao.class);
+		pdao.delpayment(pNo,cnt);
 		
 		//model.addAttribute("pNo",pNo);
 		model.addAttribute("mId",mId);
