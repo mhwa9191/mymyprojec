@@ -7,8 +7,9 @@
     </select>
 	<insert id="payment" >
 		INSERT INTO ORDER_MEMBER VALUES(TO_CHAR(SYSDATE,'YYYYMMDD')||#{param1},
-		ORDER_SEQ.NEXTVAL,#{param2},#{param3},#{param1},SYSDATE,
-		'포인트',30,'결제완료','N',NULL)
+		ORDER_SEQ.NEXTVAL,#{param2},#{param3},#{param1},SYSDATE,'포인트',
+		(SELECT P_PRICE FROM PRODUCT WHERE P_NO=#{param2})*#{param3},
+		'결제완료','N',NULL,NULL)
     </insert>
     
     <select id="mtOrderList" resultType="micky.sports.shop.dto.OrderMemberDto">
