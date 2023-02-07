@@ -15,6 +15,7 @@ ${cCnt } --%>
 
 <table width="800" border="1">
 	<tr>
+		<td>주문날짜</td>
 		<td>주문번호</td>
 		<td>주문자</td>
 		<td>상품명</td>
@@ -26,6 +27,7 @@ ${cCnt } --%>
 	</tr>
 	<c:forEach items="${omdList }" var="mlist">
 	<tr>
+		<td>${mlist.orderMemberDto.om_date }</td>
 		<td>${mlist.orderMemberDto.om_num }</td>
  		<td>${mlist.orderMemberDto.m_id }</td>
 		<td>${mlist.p_name }</td>

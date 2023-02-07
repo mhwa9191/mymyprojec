@@ -64,21 +64,21 @@ public class OrderController {
 		System.out.println("========payment=======");
 		
 		//String mId=request.getParameter("m_id"); //아이디
-		// TODO 230203 mId 추후수정
+		// TODO 230203 mId 수정필요
 		String mId="blue2"; 
-		String pNo=request.getParameter("p_no"); //상품번호
-		int cnt=Integer.parseInt(request.getParameter("cnt")); //수량
-		//System.out.println("cnt");
-		//System.out.println("pNo"+pNo);
+		String[] pNo=request.getParameterValues("p_no"); //상품번호
+		String[] cnt=request.getParameterValues("cnt"); //수량
 		
 		OrderDao odao=sqlSession.getMapper(OrderDao.class);
-		odao.payment(mId,pNo,cnt);
-		
-		//구매한 수량 재고 삭제
 		ProductDao pdao=sqlSession.getMapper(ProductDao.class);
-		pdao.delpayment(pNo,cnt);
-		
-		//model.addAttribute("pNo",pNo);
+		for (int i = 0; i < pNo.length; i++) {
+			System.out.println("**********"+pNo[i]);
+			System.out.println("**********"+cnt[i]);
+			//구매이력 추가
+			odao.payment(mId,pNo[i],Integer.parseInt(cnt[i]));
+			//구매한 수량 재고 삭제
+			pdao.delpayment(pNo[i],Integer.parseInt(cnt[i]));		
+		}		
 		model.addAttribute("mId",mId);
 		
 		return "redirect:myOrderList";
