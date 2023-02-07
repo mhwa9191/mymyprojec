@@ -38,21 +38,15 @@
 	<p>사이즈</p>
 		<c:forEach items="${product }" var="p">
 		<div class="productSelect">
+		<c:if test="${p.p_cnt eq 0 }">
+			${p.p_size } <span style="font-size:12pt; font-family:맑은 고딕;">품절</span>
+		</c:if>
+		<c:if test="${p.p_cnt > 0 }">
 			<input type="radio" class="sizeNo" name="sizeNo" value="${p.p_no }" onclick="sizeNo('${p.p_no }','${p.p_color }','${p.p_size }',${p.p_cnt });" />${p.p_size }
+		</c:if>
 		</div>
 		</c:forEach>
 	</div>
-</div>
-
-
-<!-- 선택한 목록 -->
-<div class="choice">
-	<div id="optAdd">
-
-
-	</div>
-	<!-- 선택취소 btnDelChoiceItem -->
-
 </div>
 
 <form action="../order/orderPage" method="post" class="order_form">
@@ -90,12 +84,12 @@
 	function sizeNo(pno,pcolor,psize,totcnt) {	
 	 	/* alert("초이스 확인창"); */
 /* 중복클릭 if else 처리 필요함 */
-	 	var elems= document.getElementsByName('aa');	 	
+	 	var elems= document.getElementsByName('choice');	 	
 	 	/* alert(elems.length); */
-	 	var html='<div name="aa" id="choice_'+pno+'">'+pcolor+'&nbsp;'+psize+'&nbsp;&nbsp;'
+	 	var html='<div name="choice" id="choice_'+pno+'">'+pcolor+'&nbsp;'+psize+'&nbsp;&nbsp;'
 	 	+'<span>수량</span>'
 	 	+'<input type="hidden" class="cnttot" name="재고수량" value="'+totcnt+'" />'
-	    +'<input type="text" class="cnt_'+pno+'" name="choice_cnt" value="0" size="1" readonly="readonly" style="text-align: center;" />'
+	    +'<input type="text" class="cnt_'+pno+'" name="choice_cnt" value="1" size="1" readonly="readonly" style="text-align: center;" />'
 	 	+'<input type="hidden" name="choice_pno" value="'+pno+'" />'
 	    +'<button type="button" onclick="Count(\'minus\',\''+pno+'\','+totcnt+');">-</button>'
 	 	+'<button type="button" onclick="Count(\'plus\',\''+pno+'\','+totcnt+');">+</button>'

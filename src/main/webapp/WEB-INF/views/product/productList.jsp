@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../resources/css/pstyle.css" />
 </head>
 <body>
 <h3>상품리스트</h3>
