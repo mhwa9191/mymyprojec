@@ -31,16 +31,7 @@ public class OrderController {
 		System.out.println("========orderPage=======");
 		
 		//String mId=request.getParameter("m_id"); //아이디
-		//String p_no=request.getParameter("p_no"); //상품번호
-		//int cCnt=Integer.parseInt(request.getParameter("cnt")); //수량
-//		System.out.println(pname+"***"+size+"***"+color);
-//		model.addAttribute("cCnt",cCnt);
-//		
-		
-		//전체 스트링으로 받아서 ,로 구분하여 사용해보는 방법을 먼저 하기
-		//DTO 이용해서 파람값을 여러개 보내려면 에이젝스나 자바스크립트를 이용하는 편이므로...
-		
-		// TODO 230203 상품번호 하나와 상품수량만 확인 가능
+		// TODO 230203 mId 수정필요
 		String[] no=request.getParameterValues("choice_pno"); 
 		String[] cnt=request.getParameterValues("choice_cnt"); 
 		OrderDao odao = sqlSession.getMapper(OrderDao.class);
@@ -89,19 +80,15 @@ public class OrderController {
 	public String orderList(HttpServletRequest request, Model model) {
 		System.out.println("========myOrderList=======");
 		
-		// TODO 230203 mId 추후수정
+		// TODO 230203 mId 수정필요
 		String mId=request.getParameter("mId");
 		System.out.println("mId: "+mId);
 		//String mId=request.getParameter("m_id"); //아이디
-
 		
 		OrderDao odao=sqlSession.getMapper(OrderDao.class);
 		System.out.println("-");
 		ArrayList<OrderMemberDto> omdList=odao.mtOrderList(mId);
-		//OrderMemberDto omdList=odao.mtOrderList(mId);
-		
-		System.out.println("??");
-//		System.out.println(omdList.getOm_cntnum());
+
 		model.addAttribute("omdList",omdList);
 		
 		return "/order/myOrderList";

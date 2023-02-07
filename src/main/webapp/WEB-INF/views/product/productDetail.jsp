@@ -38,7 +38,7 @@
 	<p>사이즈</p>
 		<c:forEach items="${product }" var="p">
 		<div class="productSelect">
-			<input type="radio" class="sizeNo" name="sizeNo" value="${p.p_no }" onclick="sizeNo('${p.p_no }','${p.p_color }',${p.p_cnt });" />${p.p_size }
+			<input type="radio" class="sizeNo" name="sizeNo" value="${p.p_no }" onclick="sizeNo('${p.p_no }','${p.p_color }','${p.p_size }',${p.p_cnt });" />${p.p_size }
 		</div>
 		</c:forEach>
 	</div>
@@ -87,10 +87,12 @@
 <script>
 	/* 사이즈 선택시 */
 	/* 해당 사이즈의 재고량 변화 */
-	function sizeNo(pno,pcolor,totcnt) {	
+	function sizeNo(pno,pcolor,psize,totcnt) {	
 	 	/* alert("초이스 확인창"); */
 /* 중복클릭 if else 처리 필요함 */
-	 	var html='<div id="choice_'+pno+'">'+pcolor+'확인중&nbsp;&nbsp;'
+	 	var elems= document.getElementsByName('aa');	 	
+	 	/* alert(elems.length); */
+	 	var html='<div name="aa" id="choice_'+pno+'">'+pcolor+'&nbsp;'+psize+'&nbsp;&nbsp;'
 	 	+'<span>수량</span>'
 	 	+'<input type="hidden" class="cnttot" name="재고수량" value="'+totcnt+'" />'
 	    +'<input type="text" class="cnt_'+pno+'" name="choice_cnt" value="0" size="1" readonly="readonly" style="text-align: center;" />'
@@ -98,9 +100,18 @@
 	    +'<button type="button" onclick="Count(\'minus\',\''+pno+'\','+totcnt+');">-</button>'
 	 	+'<button type="button" onclick="Count(\'plus\',\''+pno+'\','+totcnt+');">+</button>'
 	 	+'&nbsp;&nbsp;&nbsp; <button type="button" onclick="deletechoice(\''+pno+'\');">x</button>'
-	 	+'</div>'; 
-	 	$('.choicelist').append(html);
-
+	 	+'</div>';
+	 	
+	 	if (elems.length==0) {
+			$('.choicelist').append(html);
+		}
+ 		for (var i = 0; i < elems.length; i++) {
+			var elem =elems[i].id;
+			if (('choice_'+pno)==elem){
+				html='';
+			}
+		}
+	 	$('.choicelist').append(html);	
 	};
 </script>
 
