@@ -41,16 +41,19 @@ public class OrderController {
 		//DTO 이용해서 파람값을 여러개 보내려면 에이젝스나 자바스크립트를 이용하는 편이므로...
 		
 		// TODO 230203 상품번호 하나와 상품수량만 확인 가능
-		String no=request.getParameter("orders.p_no"); 
-		int cnt=Integer.parseInt(request.getParameter("orders.u_cnt")); 
-		System.out.println("**********"+no);
-		System.out.println("**********"+cnt);
-
+		String[] no=request.getParameterValues("choice_pno"); 
+		String[] cnt=request.getParameterValues("choice_cnt"); 
 		OrderDao odao = sqlSession.getMapper(OrderDao.class);
-		ProductDto orderPSelect=odao.orderSelect(no);
-		
-		model.addAttribute("orderPSelect",orderPSelect);
-		model.addAttribute("cnt",cnt);
+		ArrayList<ProductDto> orderPSelect =new ArrayList<ProductDto>();
+		ArrayList<Integer> cnts=new ArrayList<Integer>();
+		for (int i = 0; i < no.length; i++) {
+			System.out.println("**********"+no[i]);
+			System.out.println("**********"+cnt[i]);
+			orderPSelect.addAll(odao.orderSelect(no[i]));
+			cnts.add(Integer.parseInt(cnt[i]));
+		}
+		model.addAttribute("orderPSelectList",orderPSelect);
+		model.addAttribute("cnt",cnts);
 		
 		return "/order/orderPage";
 	}
