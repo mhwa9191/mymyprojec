@@ -9,7 +9,8 @@ public interface OrderDao {
 
 	public void payment(String mId,String pNo,int cCnt);
 	
-	public ProductDto orderSelect(String pno);
+	//주문페이지 정보보기
+	public ArrayList<ProductDto> orderSelect(String pno);
 	
 	//public OrderMemberDto mtOrderList(String mIdd);
 	public ArrayList<OrderMemberDto>  mtOrderList(String mIdd);

@@ -38,10 +38,10 @@
 		<collection property="orderMemberDto" resultMap="OrderMemberDto"></collection>
     </resultMap>
     <select id="mtOrderList" parameterType="micky.sports.shop.dto.ProductDto" resultMap="ProductDto">
-		SELECT P_NO,OM_NUM,M_ID,P_COLOR,P_SIZE,U_CNT,P_PRICE,OM_STATE,P_NAME
-		FROM (SELECT OM.P_NO,OM.OM_NUM,OM.M_ID,OM.U_CNT,OM.P_PRICE,OM.OM_STATE,P.P_COLOR,P.P_SIZE,P.P_NAME
+		SELECT OM_DATE,P_NO,OM_NUM,M_ID,P_COLOR,P_SIZE,U_CNT,P_PRICE,OM_STATE,P_NAME
+		FROM (SELECT OM.OM_DATE,OM.P_NO,OM.OM_NUM,OM.M_ID,OM.U_CNT,OM.P_PRICE,OM.OM_STATE,P.P_COLOR,P.P_SIZE,P.P_NAME
 		FROM ORDER_MEMBER OM INNER JOIN PRODUCT P ON OM.P_NO=P.P_NO)
-		WHERE M_ID=#{param1}
+		WHERE M_ID=#{param1} ORDER BY OM_DATE DESC
     </select>
 
 </mapper>

@@ -13,16 +13,20 @@
 <h5>구매할 상품</h5>
 
 <form action="payment" method="post">
+<c:forEach items="${orderPSelectList}" var="slist" varStatus="status">
 <div>
-	<img src="../resources/img/${orderPSelect.p_filesrc }.jpg" width="50" alt="" /> <br />
-	<input type="text" name="p_no" value="${orderPSelect.p_no }"/>
-	<input type="text" name="cnt" value="${cnt }"/>
-	상품명 : <div id="p_name">${orderPSelect.p_name }</div> <br />
-	색상 : <div id="p_color">${orderPSelect.p_color }</div> <br />
-	사이즈 : <div id="p_size">${orderPSelect.p_size }</div> <br />
-	수량 : <div id="cnt" >${cnt}</div> <br />
-	총액 : <div id="totPrice">${cnt*orderPSelect.p_price }</div> <br />
+	<img src="../resources/img/${slist.p_filesrc }.jpg" width="50" alt="" /> <br />
+	<input type="text" name="p_no" value="${slist.p_no }"/>
+	<input type="text" name="cnt" value="${cnt[status.index] }"/> <br />
+	상품명 : <div id="p_name">${slist.p_name }</div> <br />
+	색상 : <div id="p_color">${slist.p_color }</div> <br />
+	사이즈 : <div id="p_size">${slist.p_size }</div> <br />
+	수량 : <div id="cnt" >${cnt[status.index] }</div> <br />
+	총액 : <div id="totPrice">${cnt[status.index]*slist.p_price }</div> <br />
 </div>
+<hr />
+</c:forEach>
+
 
 <input type="submit" value="결제하기" />
 </form>

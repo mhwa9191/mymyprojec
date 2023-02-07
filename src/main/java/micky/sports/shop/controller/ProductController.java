@@ -35,14 +35,18 @@ public class ProductController {
 		System.out.println("========product=======");
 		
 		String pname=request.getParameter("pname");
+		String pfilesrc=request.getParameter("pfilesrc");
+		System.out.println("====**"+pfilesrc+pname);
 
 		ProductDao Pdao=sqlSession.getMapper(ProductDao.class);
 		model.addAttribute("productMain",Pdao.productMain(pname));
-		model.addAttribute("product",Pdao.product(pname));
-		model.addAttribute("productSelect",Pdao.productSelect(pname));
+		model.addAttribute("product",Pdao.product(pname,pfilesrc));
+		//model.addAttribute("productSelect",Pdao.productSelect(pname,pcolor));
 		
 		return "/product/productDetail";
 	}
+
+
 	
 
 }
