@@ -9,6 +9,8 @@
 <link rel="stylesheet" href="../resources/css/pstyle.css" />
 </head>
 <body>
+로그인확인
+
 <h3>상품리스트</h3>
 <table width="500" border="1">
 	<tr>
