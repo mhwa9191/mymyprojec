@@ -11,30 +11,33 @@ import org.springframework.ui.Model;
 import micky.sports.shop.dao.ProductDao;
 import micky.sports.shop.service.MickyServiceInter;
 
-public class ProductListService implements MickyServiceInter{
+public class ProductDetailService implements MickyServiceInter{
 	private SqlSession sqlSession;
 	private HttpSession httpsession;
-	
-	public ProductListService(SqlSession sqlSession,HttpSession httpsession) {
+	public ProductDetailService(SqlSession sqlSession,HttpSession httpsession) {
 		this.sqlSession=sqlSession;
-		this.httpsession = httpsession;
+		this.httpsession=httpsession;
 	}
-		@Override
+	@Override
 	public void execute(Model model) {
-		System.out.println("*/*/*ProductListService");
-		
 		Map<String, Object> map=model.asMap();
 		HttpServletRequest request=
-				(HttpServletRequest)map.get("request");	
-
+				(HttpServletRequest)map.get("request");		
+		
 		//로그인 세션
 		httpsession = request.getSession();
 		String loginId = (String)httpsession.getAttribute("loginid");
 		//System.out.println("*********~~~~~~~~~~~~~~~~~"+loginId);
 		
-		ProductDao Pdao=sqlSession.getMapper(ProductDao.class);
-		model.addAttribute("productlsit",Pdao.productlist());
+		String pname=request.getParameter("pname");
+		String pfilesrc=request.getParameter("pfilesrc");
+		System.out.println("====**"+pfilesrc+pname);
 		
+		ProductDao Pdao=sqlSession.getMapper(ProductDao.class);
+		model.addAttribute("productMain",Pdao.productMain(pname));
+		model.addAttribute("product",Pdao.product(pname,pfilesrc));
+		//model.addAttribute("productSelect",Pdao.productSelect(pname,pcolor));
+
 	}
 
 }

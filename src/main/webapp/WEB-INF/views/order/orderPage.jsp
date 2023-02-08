@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+ ${sessionScope.loginid } 님, 로그인상태입니다 ദ്ദി*ˊᗜˋ*)
 <h3>주문하기 </h3>
 <hr />
 <h5>구매할 상품</h5>
@@ -15,7 +16,7 @@
 <form action="payment" method="post">
 <c:forEach items="${orderPSelectList}" var="slist" varStatus="status">
 <div>
-	<img src="../resources/img/${slist.p_filesrc }.jpg" width="50" alt="" /> <br />
+	<img src="../resources/img/productimg/${slist.p_filesrc }.jpg" width="50" alt="" /> <br />
 	<input type="text" name="p_no" value="${slist.p_no }"/>
 	<input type="text" name="cnt" value="${cnt[status.index] }"/> <br />
 	상품명 : <div id="p_name">${slist.p_name }</div> <br />

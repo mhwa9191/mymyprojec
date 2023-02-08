@@ -1,8 +1,7 @@
 package micky.sports.shop.controller;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import micky.sports.shop.dao.OrderDao;
-import micky.sports.shop.dao.ProductDao;
-import micky.sports.shop.dto.OrderMemberDto;
-import micky.sports.shop.dto.ProductDto;
 import micky.sports.shop.service.MickyServiceInter;
+import micky.sports.shop.service.order.MyOrderListService;
+import micky.sports.shop.service.order.OrderPageService;
+import micky.sports.shop.service.order.OrderPaymentService;
 
 @Controller
 @RequestMapping("/order")
@@ -23,28 +21,17 @@ public class OrderController {
 
 	@Autowired
 	private SqlSession sqlSession;
-	
+	@Autowired
+	private HttpSession httpsession;
 	
 	//주문하는 페이지
 	@RequestMapping("/orderPage")
 	public String orderView(HttpServletRequest request, Model model) {
 		System.out.println("========orderPage=======");
 		
-		//String mId=request.getParameter("m_id"); //아이디
-		// TODO 230203 mId 수정필요
-		String[] no=request.getParameterValues("choice_pno"); 
-		String[] cnt=request.getParameterValues("choice_cnt"); 
-		OrderDao odao = sqlSession.getMapper(OrderDao.class);
-		ArrayList<ProductDto> orderPSelect =new ArrayList<ProductDto>();
-		ArrayList<Integer> cnts=new ArrayList<Integer>();
-		for (int i = 0; i < no.length; i++) {
-			System.out.println("**********"+no[i]);
-			System.out.println("**********"+cnt[i]);
-			orderPSelect.addAll(odao.orderSelect(no[i]));
-			cnts.add(Integer.parseInt(cnt[i]));
-		}
-		model.addAttribute("orderPSelectList",orderPSelect);
-		model.addAttribute("cnt",cnts);
+		model.addAttribute("request",request);
+		mickyServiceInter=new OrderPageService(sqlSession,httpsession);
+		mickyServiceInter.execute(model);
 		
 		return "/order/orderPage";
 	}
@@ -54,23 +41,9 @@ public class OrderController {
 	public String payment(HttpServletRequest request, Model model) {
 		System.out.println("========payment=======");
 		
-		//String mId=request.getParameter("m_id"); //아이디
-		// TODO 230203 mId 수정필요
-		String mId="blue2"; 
-		String[] pNo=request.getParameterValues("p_no"); //상품번호
-		String[] cnt=request.getParameterValues("cnt"); //수량
-		
-		OrderDao odao=sqlSession.getMapper(OrderDao.class);
-		ProductDao pdao=sqlSession.getMapper(ProductDao.class);
-		for (int i = 0; i < pNo.length; i++) {
-			System.out.println("**********"+pNo[i]);
-			System.out.println("**********"+cnt[i]);
-			//구매이력 추가
-			odao.payment(mId,pNo[i],Integer.parseInt(cnt[i]));
-			//구매한 수량 재고 삭제
-			pdao.delpayment(pNo[i],Integer.parseInt(cnt[i]));		
-		}		
-		model.addAttribute("mId",mId);
+		model.addAttribute("request",request);
+		mickyServiceInter=new OrderPaymentService(sqlSession,httpsession);
+		mickyServiceInter.execute(model);
 		
 		return "redirect:myOrderList";
 	}
@@ -80,16 +53,9 @@ public class OrderController {
 	public String orderList(HttpServletRequest request, Model model) {
 		System.out.println("========myOrderList=======");
 		
-		// TODO 230203 mId 수정필요
-		String mId=request.getParameter("mId");
-		System.out.println("mId: "+mId);
-		//String mId=request.getParameter("m_id"); //아이디
-		
-		OrderDao odao=sqlSession.getMapper(OrderDao.class);
-		System.out.println("-");
-		ArrayList<OrderMemberDto> omdList=odao.mtOrderList(mId);
-
-		model.addAttribute("omdList",omdList);
+		model.addAttribute("request",request);
+		mickyServiceInter=new MyOrderListService(sqlSession,httpsession);
+		mickyServiceInter.execute(model);
 		
 		return "/order/myOrderList";
 	}

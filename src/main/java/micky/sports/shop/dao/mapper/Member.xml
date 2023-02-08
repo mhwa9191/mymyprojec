@@ -1,0 +1,41 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="micky.sports.shop.dao.Member">
+
+	<insert id="join">
+		INSERT INTO MEMBER(M_ID,M_PW,M_NAME,M_TEL,M_NAME2,M_EMAIL,M_GRADE,M_AGE,M_GENDER,M_CASH,M_FILESRC)
+VALUES (#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8},#{param9},#{param10},#{param11})
+	</insert>
+	
+	<select id="login" resultType="Integer">
+		SELECT COUNT(*) FROM MEMBER WHERE M_ID=#{param1} AND M_PW=#{param2}
+	</select>
+	
+	<select id="joinidcheck" resultType="Integer">
+		SELECT COUNT(*) FROM MEMBER WHERE M_ID=#{param1}
+	</select>
+	
+	<select id="getmemberlist" resultType="micky.sports.shop.dto.MemberDto">
+		SELECT * FROM MEMBER
+	</select>
+	
+	<select id="memberupdateform" resultType="micky.sports.shop.dto.MemberDto">
+		SELECT * FROM MEMBER WHERE M_ID=#{param1}
+	</select>
+	
+	<update id="memberupdate">
+		UPDATE MEMBER SET M_PW=#{param2},M_NAME=#{param3},M_TEL=#{param4},M_NAME2=#{param5},
+		M_EMAIL=#{param6},M_GRADE=#{param7},M_AGE=#{param8},M_GENDER=#{param9},M_CASH=#{param10},
+		M_FILESRC=#{param11} WHERE M_ID=#{param1}
+	</update>
+	
+	<delete id="memberdelete">
+		DELETE FROM MEMBER WHERE M_ID=#{param1}
+	</delete>
+	
+	<select id="getqnalist" resultType="micky.sports.shop.dto.Qna_MemberDto">
+		SELECT * FROM QNA_MEMBER WHERE Q_MID=#{param1}
+	</select>
+</mapper>

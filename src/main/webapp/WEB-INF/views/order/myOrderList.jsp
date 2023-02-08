@@ -8,11 +8,18 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h3>나의주문내역 </h3>
+<c:if test="${empty sessionScope.loginid }">
+   <a href="../loginform">login</a> 
+   |  <a href="">join</a>
 
-<%-- ${pNo }
-${cCnt } --%>
-
+</c:if>
+ <c:if test="${not empty sessionScope.loginid }">
+    <a href="../logout">logout</a> 
+ </c:if>
+ <br />
+ ${sessionScope.loginid } 님, 로그인상태입니다 ദ്ദി*ˊᗜˋ*)
+ 
+ <h3>나의주문내역 </h3>
 <table width="800" border="1">
 	<tr>
 		<td>주문날짜</td>

@@ -9,7 +9,17 @@
 <link rel="stylesheet" href="../resources/css/pstyle.css" />
 </head>
 <body>
-로그인확인
+
+<c:if test="${empty sessionScope.loginid }">
+   <a href="../loginform">login</a> 
+   |  <a href="">join</a>
+
+</c:if>
+ <c:if test="${not empty sessionScope.loginid }">
+    <a href="../logout">logout</a> 
+ </c:if>
+ <br />
+ ${sessionScope.loginid } 님, 로그인상태입니다 ദ്ദി*ˊᗜˋ*)
 
 <h3>상품리스트</h3>
 <table width="500" border="1">

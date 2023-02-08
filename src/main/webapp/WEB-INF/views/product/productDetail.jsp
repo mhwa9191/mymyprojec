@@ -12,6 +12,17 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+<c:if test="${empty sessionScope.loginid }">
+   <a href="../loginform">login</a> 
+   |  <a href="">join</a>
+
+</c:if>
+ <c:if test="${not empty sessionScope.loginid }">
+    <a href="../logout">logout</a> 
+ </c:if>
+ <br />
+ ${sessionScope.loginid } 님, 로그인상태입니다 ദ്ദി*ˊᗜˋ*)
+ 
 <h3>상품</h3>
 
 <div>
@@ -49,13 +60,18 @@
 	</div>
 </div>
 
+<!-- 상품을 선택하지 않은 경우-->
+<div>
+	<p class="print-message-no-opt" style="display: none; color: #CC0099;">옵션을 선택해 주세요.</p>
+</div>
+
 <form action="../order/orderPage" method="post" class="order_form">
 	<!-- 선택시 목록쌓이는 곳 -->
 	<div class="choicelist">
 		<!-- name="choice_cnt"
  			 name="choice_pno" value="pno" -->
 	</div>
-	<input type="submit" value="바로구매" />
+	<input type="submit" id="order_form" value="바로구매" />
 </form>
 
 <script>
@@ -81,7 +97,8 @@
 <script>
 	/* 사이즈 선택시 */
 	/* 해당 사이즈의 재고량 변화 */
-	function sizeNo(pno,pcolor,psize,totcnt) {	
+	function sizeNo(pno,pcolor,psize,totcnt) {
+		$('.print-message-no-opt').css('display','none');
 	 	/* alert("초이스 확인창"); */
 /* 중복클릭 if else 처리 필요함 */
 	 	var elems= document.getElementsByName('choice');	 	
@@ -90,7 +107,7 @@
 	 	+'<span>수량</span>'
 	 	+'<input type="hidden" class="cnttot" name="재고수량" value="'+totcnt+'" />'
 	    +'<input type="text" class="cnt_'+pno+'" name="choice_cnt" value="1" size="1" readonly="readonly" style="text-align: center;" />'
-	 	+'<input type="hidden" name="choice_pno" value="'+pno+'" />'
+	 	+'<input type="hidden" name="choice_pno" id="choice_pno" value="'+pno+'" />'
 	    +'<button type="button" onclick="Count(\'minus\',\''+pno+'\','+totcnt+');">-</button>'
 	 	+'<button type="button" onclick="Count(\'plus\',\''+pno+'\','+totcnt+');">+</button>'
 	 	+'&nbsp;&nbsp;&nbsp; <button type="button" onclick="deletechoice(\''+pno+'\');">x</button>'
@@ -107,6 +124,21 @@
 		}
 	 	$('.choicelist').append(html);	
 	};
+</script>
+<!-- 선택 null 일때 창 -->
+<script>
+$('#order_form').click(function(){
+	var userid='<%=(String)session.getAttribute("loginid")%>';
+	if(userid=='null'){
+		alert("로그인이 필요합니다.");
+		return false;
+	}
+	if($('#choice_pno').val()==null ){
+		$('.print-message-no-opt').css('display','block');
+		return false;
+	}
+
+});
 </script>
 
 	장바구니
