@@ -6,10 +6,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 </head>
 <body>
  ${sessionScope.loginid } 님, 로그인상태입니다 ദ്ദി*ˊᗜˋ*)
 <h3>주문하기 </h3>
+<div>현재 ${sessionScope.loginid } 님, 남은 캐시는 ${ordersMember.m_cash } 입니다.</div>
 <hr />
 <h5>구매할 상품</h5>
 
@@ -25,12 +31,23 @@
 	수량 : <div id="cnt" >${cnt[status.index] }</div> <br />
 	총액 : <div id="totPrice">${cnt[status.index]*slist.p_price }</div> <br />
 </div>
+	<c:set var="totPrices" value="${totPrices+cnt[status.index]*slist.p_price }" />
+
 <hr />
 </c:forEach>
-
-
-<input type="submit" value="결제하기" />
+총 결제 금액
+<c:out value="${totPrices}" />
+<input type="hidden" class="totPrices" value="${totPrices}" /> <br />
+<input type="submit" value="결제하기" class="btn_payment"/>
+<!-- 결제 금액이 부족한 경우 -->
+<div>
+	<p class="message-no-cash" style="display: none; color: #CC0099;">결제할 캐시가 부족합니다.</p>
+</div>
 </form>
+
+<hr />
+<!-- 주문페이지에서 결제로 넘어가지 않고 다시 상품페이지로 돌아가기 -->
+<a href="/shop/product/productLsit"><button>취소</button></a>
 
 <hr />
 배송비(만원이하 2,500원)
@@ -41,6 +58,18 @@
 
 회원로그인일경우 
 비회원구매일경우
+
+<script>
+$('.btn_payment').click(function(){
+	var m_cash = ${ordersMember.m_cash };
+	var totPrices=$('.totPrices').val();
+	/* alert(totPrices); */
+	if (m_cash < totPrices){
+		$('.message-no-cash').css('display','block');
+		return false;
+	}
+});
+</script>
 
 </body>
 </html>

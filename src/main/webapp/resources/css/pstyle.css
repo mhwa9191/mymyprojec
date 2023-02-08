@@ -1,18 +1,61 @@
 :root {
-  --bs-body-bg: #fff;
-  --bs-body-color: #212529;
+	--bs-body-bg: #fff;
+	--bs-body-color: #0d6efd;
 }
-
 body {
-  margin: 0;
-  color: var(--bs-body-color);
-  background-color: var(--bs-body-bg);
-  color: #0d6efd;
+	margin: 0;
+	color: var(--bs-body-color);
+	background-color: var(--bs-body-bg);
 }
-h3{
-  text-decoration: underline;
-	
-}
-a{
+a {
 	text-decoration: none;
 }
+.productNormalPackage {
+	width: 90%;
+	border: 1px solid green;
+}
+.productList {
+	border: 1px dotted green;
+	margin: 10px 3px;
+}
+.productList > li {
+	width: 25%;
+	margin: 0 auto;
+ 	display: inline-block;
+ 	padding-top: 10px;
+ 	border: 1px solid red;
+ 	overflow : hidden;
+/* 	margin: 0 5px;
+	line-height: 10;
+ 	list-style: none;
+	position: relative;
+	border: 1px solid green; */
+}
+.pdtthumbnail {
+	margin: 0 -10px;
+	padding: 0;
+	position: relative;
+
+}
+.pdtthumbnail > img {
+	float: left;
+	margin-left : 10px;
+	width: 100%;
+}
+.pdtname {
+	margin: 0;
+	padding: 0;
+	line-height: 10;
+	position: relative;
+ 	display: inline-block;
+ 	width: 100%;
+}
+
+/* .pdtname{
+	position: relative;
+ 	display: inline-block;
+ 	margin: 0 0 4px;
+	font-size: 10;
+	color: green;
+	vertical-align: top;
+} */

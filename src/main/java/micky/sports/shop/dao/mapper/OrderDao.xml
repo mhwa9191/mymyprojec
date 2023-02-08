@@ -43,5 +43,11 @@
 		FROM ORDER_MEMBER OM INNER JOIN PRODUCT P ON OM.P_NO=P.P_NO)
 		WHERE M_ID=#{param1} ORDER BY OM_DATE DESC
     </select>
-
+    
+<!-- 주문페이지에서 회원정보확인하기 -->
+    <select id="ordersMember" resultType="micky.sports.shop.dto.MemberDto">
+		SELECT M_ID,M_PW,M_NAME,M_TEL,M_NAME2,M_EMAIL,M_GRADE,M_AGE,M_GENDER,M_CASH,M_FILESRC
+		FROM MEMBER WHERE M_ID=#{param1}
+    </select>
+		
 </mapper>

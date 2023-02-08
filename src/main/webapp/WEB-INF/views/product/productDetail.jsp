@@ -19,9 +19,9 @@
 </c:if>
  <c:if test="${not empty sessionScope.loginid }">
     <a href="../logout">logout</a> 
- </c:if>
  <br />
  ${sessionScope.loginid } 님, 로그인상태입니다 ദ്ദി*ˊᗜˋ*)
+ </c:if>
  
 <h3>상품</h3>
 

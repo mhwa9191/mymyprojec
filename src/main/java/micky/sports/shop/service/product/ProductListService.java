@@ -30,7 +30,7 @@ public class ProductListService implements MickyServiceInter{
 		//로그인 세션
 		httpsession = request.getSession();
 		String loginId = (String)httpsession.getAttribute("loginid");
-		//System.out.println("*********~~~~~~~~~~~~~~~~~"+loginId);
+		System.out.println("*********~~~~~~~~~~~~~~~~~"+loginId);
 		
 		ProductDao Pdao=sqlSession.getMapper(ProductDao.class);
 		model.addAttribute("productlsit",Pdao.productlist());

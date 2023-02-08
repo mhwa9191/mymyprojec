@@ -29,13 +29,12 @@ public class OrderPageService implements MickyServiceInter{
 		//로그인 세션
 		httpsession = request.getSession();
 		String loginId = (String)httpsession.getAttribute("loginid");
-		//System.out.println("*********~~~~~~~~~~~~~~~~~"+loginId);
-		
+		System.out.println("*********~~~~~~~~~~~~~~~~~"+loginId);
+
 		String[] no=request.getParameterValues("choice_pno"); 
 		String[] cnt=request.getParameterValues("choice_cnt"); 
 		OrderDao odao = sqlSession.getMapper(OrderDao.class);
 		
-
 		ArrayList<ProductDto> orderPSelect =new ArrayList<ProductDto>();
 		ArrayList<Integer> cnts=new ArrayList<Integer>();
 		for (int i = 0; i < no.length; i++) {
@@ -46,7 +45,9 @@ public class OrderPageService implements MickyServiceInter{
 		}
 		model.addAttribute("orderPSelectList",orderPSelect);
 		model.addAttribute("cnt",cnts);
-		
+		System.out.println("*********?"+loginId);
+		//주문페이지에서 회원 정보확인
+		model.addAttribute("ordersMember",odao.ordersMember(loginId));
 		
 	}
 
