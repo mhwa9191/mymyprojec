@@ -36,8 +36,9 @@ public class MyOrderListService implements MickyServiceInter{
 		ArrayList<OrderMemberDto> omdList=odao.mtOrderList(loginId);
 
 		model.addAttribute("omdList",omdList);
-				
 		
+		//나의주문내역에서 정보확인
+		model.addAttribute("myList",odao.ordersMember(loginId));
 		
 	}
 

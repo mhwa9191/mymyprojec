@@ -6,11 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
+<script src="../resources/js/jquery-3.6.1.min.js"></script>
+<script src="../resources/js/jquery.bpopup.min.js"></script>
 </head>
 <body>
  ${sessionScope.loginid } 님, 로그인상태입니다 ദ്ദി*ˊᗜˋ*)
@@ -47,7 +44,7 @@
 
 <hr />
 <!-- 주문페이지에서 결제로 넘어가지 않고 다시 상품페이지로 돌아가기 -->
-<a href="/shop/product/productLsit"><button>취소</button></a>
+<a href="/shop/product/productList"><button>취소</button></a>
 
 <hr />
 배송비(만원이하 2,500원)

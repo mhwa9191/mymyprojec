@@ -19,7 +19,14 @@
     <a href="../logout">logout</a> 
  <br />
  ${sessionScope.loginid } 님, 로그인상태입니다 ദ്ദി*ˊᗜˋ*)
+	 <div>
+		<p class="go-myOrderList" style="color: #336666;">
+		<a href="../order/myOrderList">나의 주문내역보기</a>
+		</p>
+	</div>
  </c:if>
+ 
+ <!-- 로그인 상태라면 나의 주문내역보기 가능 -->
 
 <h3>상품리스트</h3>
 <div class="productNormalPackage">
@@ -42,7 +49,6 @@
 </ul>
 
 </div>
-
 
 
 </body>

@@ -37,6 +37,6 @@ if(loginid.equals("admintest")){
 로그인한 아이디 : ${sessionScope.loginid }
 
 <hr />
-<a href="/shop/product/productLsit">productlist</a>
+<a href="/shop/product/productList">productlist</a> <br />
 </body>
 </html>

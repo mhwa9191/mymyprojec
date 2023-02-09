@@ -19,6 +19,17 @@
  ${sessionScope.loginid } 님, 로그인상태입니다 ദ്ദി*ˊᗜˋ*)
  </c:if>
  
+ 
+ <div>
+	<p class="go-productList" style="color: #336666;">
+	<a href="../product/productList">상품둘러보기</a>
+	</p>
+ </div>
+ <div>
+ 	<p>회원님의 현재 보유 캐시 : ${myList.m_cash }</p>
+ </div>
+ DATECNT
+
  <h3>나의주문내역 </h3>
 <table width="800" border="1">
 	<tr>
@@ -35,6 +46,20 @@
 	<c:forEach items="${omdList }" var="mlist">
 	<tr>
 		<td>${mlist.orderMemberDto.om_date }</td>
+<%-- 		<c:set value="${mlist.orderMemberDto.om_date }" var="omdate" />
+			<c:choose>
+				<c:when test="${mlist.orderMemberDto.om_date ne omdate }">
+				<td>
+				<c:out value="${mlist.orderMemberDto.om_date }"></c:out>
+				</td>
+				</c:when>
+		
+				<c:when test="${mlist.orderMemberDto.om_date eq omdate }">
+				<td>
+				<c:out value=""></c:out>
+				</td>
+				</c:when>
+			</c:choose> --%>
 		<td>${mlist.orderMemberDto.om_num }</td>
  		<td>${mlist.orderMemberDto.m_id }</td>
 		<td>${mlist.p_name }</td>

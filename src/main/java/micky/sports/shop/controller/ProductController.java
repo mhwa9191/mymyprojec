@@ -24,7 +24,7 @@ public class ProductController {
 	private HttpSession httpsession;
 	
 	//상품목록
-	@RequestMapping("/productLsit")
+	@RequestMapping("/productList")
 	public String productLsit(HttpServletRequest request, Model model) {
 		System.out.println("========productLsit=======");
 

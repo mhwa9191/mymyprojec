@@ -18,4 +18,6 @@ public interface OrderDao {
 	
 	//주문페이지에서 회원 정보확인
 	public MemberDto ordersMember(String loginId);
+	
+
 }

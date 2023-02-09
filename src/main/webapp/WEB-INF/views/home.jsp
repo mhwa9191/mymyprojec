@@ -11,6 +11,6 @@
 	Hello world!  
 </h1>
 
-<a href="product/productLsit">productList</a>
+<a href="product/productList">productList</a>
 </body>
 </html>
