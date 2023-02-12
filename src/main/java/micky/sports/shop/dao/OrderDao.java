@@ -19,5 +19,7 @@ public interface OrderDao {
 	//주문페이지에서 회원 정보확인
 	public MemberDto ordersMember(String loginId);
 	
+	//구매한 금액 회원 캐시 차감
+	public void delcash(String mId,int totPrices);
 
 }

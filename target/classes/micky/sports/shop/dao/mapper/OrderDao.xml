@@ -49,6 +49,10 @@
 		SELECT M_ID,M_PW,M_NAME,M_TEL,M_NAME2,M_EMAIL,M_GRADE,M_AGE,M_GENDER,M_CASH,M_FILESRC
 		FROM MEMBER WHERE M_ID=#{param1}
     </select>
-
+    
+	<!-- 주문시 회원캐시 차감 -->
+	<update id="delcash">
+		UPDATE MEMBER SET M_CASH=M_CASH-#{param2} WHERE M_ID=#{param1}
+	</update>
 	
 </mapper>
